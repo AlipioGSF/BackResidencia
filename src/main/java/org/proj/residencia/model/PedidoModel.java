@@ -14,7 +14,7 @@ public class PedidoModel
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     
     @Column(nullable = false)
     private int quantidade_barris;

@@ -1,5 +1,6 @@
 package org.proj.residencia.model;
 
+
 import org.springframework.data.annotation.Id;
 
 import jakarta.persistence.Column;
