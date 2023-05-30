@@ -1,5 +1,5 @@
 package org.proj.residencia.model;
 
-public class Pedido {
+public class ColetaModel {
 
 }
