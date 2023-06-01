@@ -8,31 +8,27 @@ import org.proj.residencia.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class RestauranteService {
 	
 	@Autowired
-	static
-	RestauranteRepository restauranteRepository;
+	private RestauranteRepository restauranteRepository;
 	
-	public static List<RestauranteModel> getAllRestaurantes(){
-		List<RestauranteModel> restaurantes = new ArrayList<RestauranteModel>();
-		restauranteRepository.findAll()
-			.forEach(restaurante -> restaurantes.add(restaurante));
+	public List<RestauranteModel> getAllRestaurantes(){
+		List<RestauranteModel> restaurantes = new ArrayList<>();
+		restauranteRepository.findAll().forEach(restaurantes::add);
 		return restaurantes;
 	}
 	
-	public static RestauranteModel getRestauranteById(String id) {
-		return restauranteRepository.findById(id).get();
+	public RestauranteModel getRestauranteById(String cnpj) {
+		return restauranteRepository.findById(cnpj).orElse(null);
 	}
 	
-	public static RestauranteModel saveOrUpdate(RestauranteModel restaurante) {
+	public RestauranteModel saveOrUpdate(RestauranteModel restaurante) {
 		return restauranteRepository.save(restaurante);
 	}
-	 public static void delete(String id) {
-		 restauranteRepository.deleteById(id);
-	 }
 	
-	
+	public void delete(String cnpj) {
+		restauranteRepository.deleteById(cnpj);
+	}
 }

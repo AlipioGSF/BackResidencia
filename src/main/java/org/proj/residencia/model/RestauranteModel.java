@@ -39,5 +39,4 @@ public class RestauranteModel {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-
 }

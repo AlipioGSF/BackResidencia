@@ -1,6 +1,5 @@
 package org.proj.residencia.model;
 
-
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -46,5 +45,4 @@ public class ColetaModel {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	
 }
