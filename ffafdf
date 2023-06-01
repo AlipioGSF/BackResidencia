@@ -1,0 +1,47 @@
+[1mdiff --git a/src/main/java/org/proj/residencia/model/ColetaModel.java b/src/main/java/org/proj/residencia/model/ColetaModel.java[m
+[1mindex a6ae47c..98a401a 100644[m
+[1m--- a/src/main/java/org/proj/residencia/model/ColetaModel.java[m
+[1m+++ b/src/main/java/org/proj/residencia/model/ColetaModel.java[m
+[36m@@ -46,8 +46,4 @@[m [mpublic class ColetaModel {[m
+ 	public void setObservacao(String observacao) {[m
+ 		this.observacao = observacao;[m
+ 	}[m
+[31m-	[m
+[31m-	[m
+[31m-	[m
+[31m-[m
+ }[m
+[1mdiff --git a/src/main/java/org/proj/residencia/model/PedidoModel.java b/src/main/java/org/proj/residencia/model/PedidoModel.java[m
+[1mindex e99e6e4..49d1e28 100644[m
+[1m--- a/src/main/java/org/proj/residencia/model/PedidoModel.java[m
+[1m+++ b/src/main/java/org/proj/residencia/model/PedidoModel.java[m
+[36m@@ -2,12 +2,11 @@[m [mpackage org.proj.residencia.model;[m
+ [m
+ import java.util.Date;[m
+ [m
+[31m-import org.springframework.data.annotation.Id;[m
+[31m-[m
+ import jakarta.persistence.Column;[m
+ import jakarta.persistence.Entity;[m
+ import jakarta.persistence.GeneratedValue;[m
+ import jakarta.persistence.GenerationType;[m
+[32m+[m[32mimport jakarta.persistence.Id;[m
+ [m
+ @Entity[m
+ public class PedidoModel [m
+[1mdiff --git a/src/main/java/org/proj/residencia/model/ProdutorModel.java b/src/main/java/org/proj/residencia/model/ProdutorModel.java[m
+[1mindex 8b84248..52198c2 100644[m
+[1m--- a/src/main/java/org/proj/residencia/model/ProdutorModel.java[m
+[1m+++ b/src/main/java/org/proj/residencia/model/ProdutorModel.java[m
+[36m@@ -1,10 +1,8 @@[m
+ package org.proj.residencia.model;[m
+ [m
+[31m-[m
+[31m-import org.springframework.data.annotation.Id;[m
+[31m-[m
+ import jakarta.persistence.Column;[m
+ import jakarta.persistence.Entity;[m
+[32m+[m[32mimport jakarta.persistence.Id;[m
+ [m
+ [m
+ @Entity[m

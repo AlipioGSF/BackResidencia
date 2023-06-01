@@ -1,10 +1,8 @@
 package org.proj.residencia.model;
 
-
-import org.springframework.data.annotation.Id;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 
 @Entity

@@ -46,8 +46,4 @@ public class ColetaModel {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	
-	
-	
-
 }
