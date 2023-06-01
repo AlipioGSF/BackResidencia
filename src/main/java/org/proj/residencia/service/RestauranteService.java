@@ -13,23 +13,24 @@ import org.springframework.stereotype.Service;
 public class RestauranteService {
 	
 	@Autowired
+	static
 	RestauranteRepository restauranteRepository;
 	
-	public List<RestauranteModel> getAllRestaurantes(){
+	public static List<RestauranteModel> getAllRestaurantes(){
 		List<RestauranteModel> restaurantes = new ArrayList<RestauranteModel>();
 		restauranteRepository.findAll()
 			.forEach(restaurante -> restaurantes.add(restaurante));
 		return restaurantes;
 	}
 	
-	public RestauranteModel getRestauranteById(String id) {
+	public static RestauranteModel getRestauranteById(String id) {
 		return restauranteRepository.findById(id).get();
 	}
 	
-	public void saveOrUpdate(RestauranteModel restaurante) {
-		restauranteRepository.save(restaurante);
+	public static RestauranteModel saveOrUpdate(RestauranteModel restaurante) {
+		return restauranteRepository.save(restaurante);
 	}
-	 public void delete(String id) {
+	 public static void delete(String id) {
 		 restauranteRepository.deleteById(id);
 	 }
 	
