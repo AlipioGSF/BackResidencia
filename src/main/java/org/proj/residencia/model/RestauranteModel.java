@@ -2,12 +2,17 @@ package org.proj.residencia.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class RestauranteModel {
 	@Id
-	private String cpnj; 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column
+	private String cnpj;
 	@Column
 	private String nome;
 	@Column
@@ -15,12 +20,21 @@ public class RestauranteModel {
 	@Column
 	private String endereco;
 	
-	public String getCpnj() {
-		return cpnj;
+	public Long getId() {
+		return id;
 	}
-	public void setCpnj(String cpnj) {
-		this.cpnj = cpnj;
+	public void setId(Long id) {
+		this.id = id;
 	}
+	
+	public String getCNPJ() {
+		return cnpj;
+	}
+	public void setCNPJ(String cnpj) {
+		this.cnpj = cnpj;
+	}
+	
+	
 	public String getNome() {
 		return nome;
 	}

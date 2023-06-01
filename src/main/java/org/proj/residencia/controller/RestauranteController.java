@@ -29,9 +29,9 @@ public class RestauranteController {
 		return new ResponseEntity<>(restaurantes, HttpStatus.OK);
 	}
 	
-	@GetMapping("/{cnpj}")
-	public ResponseEntity<RestauranteModel> getRestauranteById(@PathVariable("cnpj") String cnpj) {
-		RestauranteModel restaurante = restauranteService.getRestauranteById(cnpj);
+	@GetMapping(path = "/id/{id}")
+	public ResponseEntity<RestauranteModel> getRestauranteById(@PathVariable("id") Long id) {
+		RestauranteModel restaurante = restauranteService.getRestauranteById(id);
 		if (restaurante != null) {
 			return new ResponseEntity<>(restaurante, HttpStatus.OK);
 		} else {
@@ -39,7 +39,18 @@ public class RestauranteController {
 		}
 	}
 	
-	@PostMapping
+	@GetMapping(path = "/cnpj/{cnpj}")
+	public ResponseEntity<List<RestauranteModel>> getRestauranteByCnpj(@PathVariable("cnpj") String cnpj) {
+		List<RestauranteModel> restaurante = restauranteService.getRestauranteByCnpj(cnpj);
+		if (restaurante != null) {
+			return new ResponseEntity<>(restaurante, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
+	@PostMapping("")
 	public ResponseEntity<RestauranteModel> saveRestaurante(@RequestBody RestauranteModel restaurante) {
 		RestauranteModel savedRestaurante = restauranteService.saveOrUpdate(restaurante);
 		return new ResponseEntity<>(savedRestaurante, HttpStatus.CREATED);
@@ -49,9 +60,9 @@ public class RestauranteController {
 	public ResponseEntity<RestauranteModel> updateRestaurante(
 			@PathVariable("cnpj") String cnpj,
 			@RequestBody RestauranteModel restaurante) {
-		RestauranteModel existingRestaurante = restauranteService.getRestauranteById(cnpj);
+		RestauranteModel existingRestaurante = restauranteService.getRestauranteByCnpj(cnpj);
 		if (existingRestaurante != null) {
-			restaurante.setCpnj(cnpj);
+			restaurante.setId(cnpj);
 			RestauranteModel updatedRestaurante = restauranteService.saveOrUpdate(restaurante);
 			return new ResponseEntity<>(updatedRestaurante, HttpStatus.OK);
 		} else {

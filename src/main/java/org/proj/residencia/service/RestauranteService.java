@@ -20,11 +20,18 @@ public class RestauranteService {
 		return restaurantes;
 	}
 	
-	public RestauranteModel getRestauranteById(String cnpj) {
-		return restauranteRepository.findById(cnpj).orElse(null);
+	public RestauranteModel getRestauranteById(Long id) {
+		return restauranteRepository.findById(id).get();
+	}
+	
+	public List<RestauranteModel> getRestauranteByCnpj(String cnpj) {
+		List<RestauranteModel> restaurantes = new ArrayList<>();
+		restauranteRepository.findAll().forEach(restaurantes::add);
+		return restaurantes.stream().filter(x->x.getCNPJ()==(String)cnpj).toList();
 	}
 	
 	public RestauranteModel saveOrUpdate(RestauranteModel restaurante) {
+		restaurante.setId(restaurante.getId());
 		return restauranteRepository.save(restaurante);
 	}
 	
