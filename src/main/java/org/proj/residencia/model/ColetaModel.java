@@ -1,6 +1,5 @@
 package org.proj.residencia.model;
 
-
 import java.util.Date;
 
 import jakarta.persistence.Column;

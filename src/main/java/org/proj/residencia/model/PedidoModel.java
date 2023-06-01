@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 @Entity
 public class PedidoModel 
 {
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
