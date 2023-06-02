@@ -10,22 +10,22 @@ import jakarta.persistence.Id;
 public class RestauranteModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column
+	private Long idRestaurante;
+	@Column(nullable = false, unique = true)
 	private String cnpj;
-	@Column
+	@Column(nullable = false)
 	private String nome;
 	@Column
 	private int pontos;
-	@Column
+	@Column(nullable = false)
 	private String endereco;
 
 	public Long getId() {
-		return id;
+		return idRestaurante;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.idRestaurante = id;
 	}
 
 	public String getCNPJ() {
