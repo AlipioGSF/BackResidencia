@@ -10,32 +10,29 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RestauranteService {
-	
+
 	@Autowired
 	private RestauranteRepository restauranteRepository;
-	
-	public List<RestauranteModel> getAllRestaurantes(){
+
+	public List<RestauranteModel> getAllRestaurantes() {
 		List<RestauranteModel> restaurantes = new ArrayList<>();
 		restauranteRepository.findAll().forEach(restaurantes::add);
 		return restaurantes;
 	}
-	
+
 	public RestauranteModel getRestauranteById(Long id) {
 		return restauranteRepository.findById(id).get();
 	}
-	
-	public List<RestauranteModel> getRestauranteByCnpj(String cnpj) {
-		List<RestauranteModel> restaurantes = new ArrayList<>();
-		restauranteRepository.findAll().forEach(restaurantes::add);
-		return restaurantes.stream().filter(x->x.getCNPJ()==(String)cnpj).toList();
-	}
-	
+
+	public RestauranteModel getRestauranteByCnpj(String cnpj) {
+		return restauranteRepository.findByCnpj(cnpj);
+	};
+
 	public RestauranteModel saveOrUpdate(RestauranteModel restaurante) {
-		restaurante.setId(restaurante.getId());
 		return restauranteRepository.save(restaurante);
 	}
-	
-	public void delete(String cnpj) {
-		restauranteRepository.deleteById(cnpj);
+
+	public void delete(RestauranteModel restaurante) {
+		restauranteRepository.delete(restaurante);
 	}
 }
