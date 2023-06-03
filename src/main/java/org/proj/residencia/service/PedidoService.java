@@ -15,8 +15,7 @@ public class PedidoService {
 	
 	public List<PedidoModel> getAllPedidos(){
 		List<PedidoModel> pedidos = new ArrayList<PedidoModel>();
-		pedidoRepository.findAll()
-			.forEach(pedido -> pedidos.add(pedido));
+		pedidoRepository.findAll().forEach(pedidos::add);
 		return pedidos;
 	}
 	
@@ -24,8 +23,8 @@ public class PedidoService {
 		return pedidoRepository.findById(id).get();
 	}
 	
-	public void saveOrUpdate(PedidoModel pedido) {
-		pedidoRepository.save(pedido);
+	public PedidoModel saveOrUpdate(PedidoModel pedido) {
+		return pedidoRepository.save(pedido);
 	}
 	
 	public void delete(Long id) {
