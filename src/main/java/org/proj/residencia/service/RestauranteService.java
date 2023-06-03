@@ -26,7 +26,7 @@ public class RestauranteService {
 
 	public RestauranteModel getRestauranteByCnpj(String cnpj) {
 		return restauranteRepository.findByCnpj(cnpj);
-	};
+	}
 
 	public RestauranteModel saveOrUpdate(RestauranteModel restaurante) {
 		return restauranteRepository.save(restaurante);

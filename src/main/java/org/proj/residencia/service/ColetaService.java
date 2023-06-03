@@ -15,8 +15,7 @@ public class ColetaService {
 	
 	public List<ColetaModel> getAllColetas(){
 		List<ColetaModel> coletas = new ArrayList<ColetaModel>();
-		coletaRepository.findAll()
-			.forEach(coleta -> coletas.add(coleta));
+		coletaRepository.findAll().forEach(coletas::add);
 		return coletas;
 	}
 	
@@ -24,8 +23,8 @@ public class ColetaService {
 		return coletaRepository.findById(id).get();
 	}
 	
-	public void saveOrUpdate(ColetaModel coleta) {
-		coletaRepository.save(coleta);
+	public ColetaModel saveOrUpdate(ColetaModel coleta) {
+		return coletaRepository.save(coleta);
 	}
 	
 	public void delete(Long id) {

@@ -10,25 +10,29 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProdutorService {
+	
 	@Autowired
 	ProdutorRepository produtorRepository;
 	
 	public List<ProdutorModel> getAllProdutores(){
 		List<ProdutorModel> produtores = new ArrayList<ProdutorModel>();
-		produtorRepository.findAll()
-			.forEach(produtor -> produtores.add(produtor));
+		produtorRepository.findAll().forEach(produtores::add);
 		return produtores;
 	}
 	
-	public ProdutorModel getProdutorById(String id) {
+	public ProdutorModel getProdutorById(Long id) {
 		return produtorRepository.findById(id).get();
 	}
 	
-	public void saveOrUpdate(ProdutorModel produtor) {
-		produtorRepository.save(produtor);
+	public ProdutorModel getProdutorByCnpj (String cnpj) {
+		return produtorRepository.findByCnpj(cnpj);
 	}
 	
-	public void delete(String id) {
-		produtorRepository.deleteById(id);
+	public ProdutorModel saveOrUpdate(ProdutorModel produtor) {
+		return produtorRepository.save(produtor);
+	}
+	
+	public void delete(ProdutorModel produtor) {
+		produtorRepository.delete(produtor);
 	}
 }
