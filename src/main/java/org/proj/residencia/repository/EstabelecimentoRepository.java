@@ -1,14 +1,13 @@
 package org.proj.residencia.repository;
 
-import org.proj.residencia.model.RestauranteModel;
-
+import org.proj.residencia.model.EstabelecimentoModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RestauranteRepository extends JpaRepository<RestauranteModel, Long> {
+public interface EstabelecimentoRepository extends JpaRepository<EstabelecimentoModel, Long> {
 
 	@Query
-	RestauranteModel findByCnpj(String cnpj);
+	EstabelecimentoModel findByCnpj(String cnpj);
 }

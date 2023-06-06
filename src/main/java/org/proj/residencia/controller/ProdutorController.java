@@ -40,7 +40,7 @@ public class ProdutorController {
 			return new ResponseEntity<>(produtor, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		} 
 	}
 
 	@GetMapping(path = "/{cnpj}")

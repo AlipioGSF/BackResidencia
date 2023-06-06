@@ -3,8 +3,9 @@ package org.proj.residencia.controller;
 import java.util.List;
 
 import org.proj.residencia.model.ColetaModel;
+import org.proj.residencia.model.EstabelecimentoModel;
 import org.proj.residencia.service.ColetaService;
-
+import org.proj.residencia.service.EstabelecimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,23 +18,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.safeguard.check.SafeguardCheck;
-import br.com.safeguard.interfaces.Check;
-
 @RestController
 @RequestMapping("/coletas")
 public class ColetaController {
-	
+
 	@Autowired
-	private ColetaService coletaService;
+	ColetaService coletaService;
+	@Autowired
+	EstabelecimentoService estabelecimentoService;
 	
-	@GetMapping
+	@GetMapping("")
 	public ResponseEntity<List<ColetaModel>>  getAllColetas(){
 		List<ColetaModel> coletas = coletaService.getAllColetas();
 		return new ResponseEntity<>(coletas, HttpStatus.OK);
 	}
 	
-	@GetMapping(path = "/id/{id}")
+	@GetMapping(path = "/{id}")
 	public ResponseEntity <ColetaModel> getColetasById(@PathVariable("id") Long id){
 		ColetaModel coleta = coletaService.getColetaById(id);
 		if (coleta != null) {
@@ -43,12 +43,12 @@ public class ColetaController {
 		}	
 	}
 	
-	@PostMapping("")
-	public ResponseEntity <ColetaModel> saveColeta(@RequestBody ColetaModel coleta){
-		Check check = new SafeguardCheck();
-		boolean hasError = check.elementOf(coleta.getIdColeta()).validate().hasError();
-		if(!hasError) {
-			ColetaModel savedColeta = coletaService.saveOrUpdate(coleta);
+	@PostMapping("/{id}")
+	public ResponseEntity <ColetaModel> saveColeta(@PathVariable(value = "id") Long id,@RequestBody ColetaModel coleta){
+		EstabelecimentoModel estabelecimento = estabelecimentoService.getEstabelecimentoById(id);
+		coleta.setEstabelecimento(estabelecimento);
+		ColetaModel savedColeta = coletaService.saveOrUpdate(coleta);
+		if(savedColeta != null) {
 			return new ResponseEntity<>(savedColeta, HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

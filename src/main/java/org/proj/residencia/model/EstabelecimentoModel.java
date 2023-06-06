@@ -1,16 +1,22 @@
 package org.proj.residencia.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 
 @Entity
-public class RestauranteModel {
+public class EstabelecimentoModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idRestaurante;
+	private Long idEstabelecimento;
 	@Column(nullable = false, unique = true)
 	private String cnpj;
 	@Column(nullable = false)
@@ -19,20 +25,25 @@ public class RestauranteModel {
 	private int pontos;
 	@Column(nullable = false)
 	private String endereco;
+	
+	@OneToMany
+	@JoinColumn(name = "id_estabelecimento")
+	@JsonIgnore
+	private List<ColetaModel> coletas;
 
 	public Long getId() {
-		return idRestaurante;
+		return idEstabelecimento;
 	}
 
 	public void setId(Long id) {
-		this.idRestaurante = id;
+		this.idEstabelecimento = id;
 	}
 
-	public String getCNPJ() {
+	public String getCnpj() {
 		return cnpj;
 	}
 
-	public void setCNPJ(String cnpj) {
+	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
 
@@ -59,4 +70,14 @@ public class RestauranteModel {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+
+	public List<ColetaModel> getColetas() {
+		return coletas;
+	}
+
+	public void setColetas(List<ColetaModel> coletas) {
+		this.coletas = coletas;
+	}
+	
+	
 }
