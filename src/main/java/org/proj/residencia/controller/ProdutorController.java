@@ -2,6 +2,7 @@ package org.proj.residencia.controller;
 
 import java.util.List;
 
+import org.proj.residencia.model.PedidoModel;
 import org.proj.residencia.model.ProdutorModel;
 import org.proj.residencia.service.ProdutorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import br.com.safeguard.interfaces.Check;
 import br.com.safeguard.types.ParametroTipo;
 
 @RestController
-@RequestMapping("/produtores")
+@RequestMapping("/produtor")
 public class ProdutorController {
 
 	@Autowired
@@ -52,11 +53,24 @@ public class ProdutorController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	
+	@GetMapping(path = "/{id}/pedidos")
+	public ResponseEntity<List<PedidoModel>> getPedidos(@PathVariable("id") Long id){
+		ProdutorModel produtor = produtorService.getProdutorById(id);
+		if(produtor != null) {
+			if(produtor.getPedidos() != null) 
+			return new ResponseEntity<>(produtor.getPedidos(), HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
 	@PostMapping("")
 	public ResponseEntity<ProdutorModel> saveProdutor(@RequestBody ProdutorModel produtor) {
 		Check check = new SafeguardCheck();
-		boolean hasError = check.elementOf(produtor.getCNPJ(), ParametroTipo.CNPJ).validate().hasError();
+		boolean hasError = check.elementOf(produtor.getCnpj(), ParametroTipo.CNPJ).validate().hasError();
 		if (!hasError) {
 			ProdutorModel savedProdutor = produtorService.saveOrUpdate(produtor);
 			return new ResponseEntity<>(savedProdutor, HttpStatus.CREATED);
@@ -67,7 +81,7 @@ public class ProdutorController {
 
 	@PutMapping("")
 	public ResponseEntity<ProdutorModel> updateProdutor(@RequestBody ProdutorModel produtor) {
-		ProdutorModel existingProdutor = produtorService.getProdutorByCnpj(produtor.getCNPJ());
+		ProdutorModel existingProdutor = produtorService.getProdutorByCnpj(produtor.getCnpj());
 		if (existingProdutor != null) {
 			ProdutorModel updatedProdutor = produtorService.saveOrUpdate(produtor);
 			return new ResponseEntity<>(updatedProdutor, HttpStatus.OK);

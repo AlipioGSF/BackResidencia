@@ -3,6 +3,7 @@ package org.proj.residencia.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.proj.residencia.model.PedidoModel;
 import org.proj.residencia.model.ProdutorModel;
 import org.proj.residencia.repository.ProdutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,4 +36,12 @@ public class ProdutorService {
 	public void delete(ProdutorModel produtor) {
 		produtorRepository.delete(produtor);
 	}
+	
+	public List<PedidoModel> getPedidoByProdutorId(Long id){
+		ProdutorModel produtor = getProdutorById(id);
+		if(produtor != null) return produtor.getPedidos();
+		return null;
+	}
+	
+	
 }

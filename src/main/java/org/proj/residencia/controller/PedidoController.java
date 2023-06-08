@@ -3,7 +3,9 @@ package org.proj.residencia.controller;
 import java.util.List;
 
 import org.proj.residencia.model.PedidoModel;
+import org.proj.residencia.model.ProdutorModel;
 import org.proj.residencia.service.PedidoService;
+import org.proj.residencia.service.ProdutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.safeguard.check.SafeguardCheck;
-import br.com.safeguard.interfaces.Check;
-
 @RestController
 @RequestMapping("/pedidos")
 public class PedidoController {
@@ -26,13 +25,16 @@ public class PedidoController {
 	@Autowired
 	private PedidoService pedidoService;
 	
+	@Autowired
+	ProdutorService produtorService;
+	
 	@GetMapping
 	public ResponseEntity<List<PedidoModel>> getAllPedidos(){
 		List<PedidoModel> pedidos = pedidoService.getAllPedidos();
 		return new ResponseEntity<>(pedidos, HttpStatus.OK);
 	}
 	
-	@GetMapping("/id/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity <PedidoModel> getPedidoById(@PathVariable("id")Long id){
 		PedidoModel pedido = pedidoService.getPedidoById(id);
 		if (pedido != null) {
@@ -42,12 +44,12 @@ public class PedidoController {
 		}
 	}
 	
-	@PostMapping("")
-	public ResponseEntity <PedidoModel> savedPedido(@RequestBody PedidoModel pedido){
-		Check check = new SafeguardCheck();
-		boolean hasError = check.elementOf(pedido.getId()).validate().hasError();
-		if (!hasError) {
+	@PostMapping("/{id}")
+	public ResponseEntity <PedidoModel> savedPedido(@PathVariable(value="id")Long id,@RequestBody PedidoModel pedido){
+			ProdutorModel produtor = produtorService.getProdutorById(id);
+			pedido.setProdutor(produtor);
 			PedidoModel savedPedido = pedidoService.saveOrUpdate(pedido);
+			if(savedPedido != null) {
 			return new ResponseEntity<>(savedPedido, HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -56,7 +58,7 @@ public class PedidoController {
 	
 	@PutMapping("")
 	public ResponseEntity <PedidoModel> updatePedido(@RequestBody PedidoModel pedido){
-		PedidoModel existingPedido = pedidoService.getPedidoById(pedido.getId());
+		PedidoModel existingPedido = pedidoService.getPedidoById(pedido.getIdPedido());
 		if (existingPedido != null) {
 			PedidoModel updatePedido = pedidoService.saveOrUpdate(pedido);
 			return new ResponseEntity<>(updatePedido, HttpStatus.OK);
