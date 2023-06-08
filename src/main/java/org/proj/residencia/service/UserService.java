@@ -1,21 +1,17 @@
 package org.proj.residencia.service;
 
 import org.proj.residencia.model.UserModel;
+import org.proj.residencia.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginService {
+public class UserService {
 	@Autowired
-	EstabelecimentoService estabelecimentoService;
-	@Autowired
-	ProdutorService produtorService;
+	UserRepository userRepository; 
 	
-	public boolean checkSenha(UserModel user, String senha) {
-		return user.getSenha() == senha;
+	public UserModel getUserByEmail(String email) {
+		return userRepository.getUserByEmail(email);
 	}
-	
-	
-	
 	
 }
