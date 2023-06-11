@@ -10,4 +10,7 @@ public interface EstabelecimentoRepository extends JpaRepository<Estabelecimento
 
 	@Query
 	EstabelecimentoModel findByCnpj(String cnpj);
+
+	@Query
+	EstabelecimentoModel findByEmail(String email);
 }

@@ -29,6 +29,10 @@ public class ProdutorService {
 		return produtorRepository.findByCnpj(cnpj);
 	}
 	
+	public ProdutorModel getProdutorByEmail(String email) {
+		return produtorRepository.findByEmail(email);
+	}
+	
 	public ProdutorModel saveOrUpdate(ProdutorModel produtor) {
 		return produtorRepository.save(produtor);
 	}

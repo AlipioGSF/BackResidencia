@@ -11,6 +11,8 @@ public interface ProdutorRepository extends JpaRepository<ProdutorModel, Long>{
 	
 	@Query
 	ProdutorModel findByCnpj (String cnpj);
+	@Query
+	ProdutorModel findByEmail(String email);
 
 	
 }

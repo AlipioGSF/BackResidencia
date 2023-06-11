@@ -35,4 +35,9 @@ public class EstabelecimentoService {
 	public void delete(EstabelecimentoModel estabelecimento) {
 		estabelecimentoRepository.delete(estabelecimento);
 	}
+
+	public EstabelecimentoModel getUserByEmail(String email) {
+		estabelecimentoRepository.findByEmail(email);
+		return null;
+	}
 }

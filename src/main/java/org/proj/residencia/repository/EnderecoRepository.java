@@ -1,11 +1,10 @@
 package org.proj.residencia.repository;
 
-import org.proj.residencia.model.UserModel;
+import org.proj.residencia.model.EnderecoModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserModel, Long> {
+public interface EnderecoRepository extends JpaRepository<EnderecoModel, Long> {
 
-	UserModel getUserByEmail(String email);
 }
