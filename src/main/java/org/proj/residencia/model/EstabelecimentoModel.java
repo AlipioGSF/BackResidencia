@@ -14,10 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
-
 @Entity
-public class ProdutorModel 
-{
+public class EstabelecimentoModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -29,11 +27,15 @@ public class ProdutorModel
 	private String cnpj;
 	@Column(nullable = false)
 	private String nome;
-	@OneToMany
-	@JoinColumn(name = "id_produtor")
-	@JsonIgnore
-	private List<PedidoModel> pedidos;
+	@Column
+	private int pontos;
 	
+	
+	@OneToMany
+	@JoinColumn(name = "id_estabelecimento")
+	@JsonIgnore
+	private List<ColetaModel> coletas;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_endereco", nullable = false)
 	private EnderecoModel endereco;
@@ -78,12 +80,20 @@ public class ProdutorModel
 		this.nome = nome;
 	}
 
-	public List<PedidoModel> getPedidos() {
-		return pedidos;
+	public int getPontos() {
+		return pontos;
 	}
 
-	public void setPedidos(List<PedidoModel> pedidos) {
-		this.pedidos = pedidos;
+	public void setPontos(int pontos) {
+		this.pontos = pontos;
+	}
+
+	public List<ColetaModel> getColetas() {
+		return coletas;
+	}
+
+	public void setColetas(List<ColetaModel> coletas) {
+		this.coletas = coletas;
 	}
 
 	public EnderecoModel getEndereco() {
@@ -93,7 +103,7 @@ public class ProdutorModel
 	public void setEndereco(EnderecoModel endereco) {
 		this.endereco = endereco;
 	}
-
 	
+
 
 }
