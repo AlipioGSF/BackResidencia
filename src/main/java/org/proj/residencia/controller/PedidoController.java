@@ -9,6 +9,7 @@ import org.proj.residencia.service.ProdutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,12 +29,14 @@ public class PedidoController {
 	@Autowired
 	ProdutorService produtorService;
 	
+	@CrossOrigin
 	@GetMapping
 	public ResponseEntity<List<PedidoModel>> getAllPedidos(){
 		List<PedidoModel> pedidos = pedidoService.getAllPedidos();
 		return new ResponseEntity<>(pedidos, HttpStatus.OK);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity <PedidoModel> getPedidoById(@PathVariable("id")Long id){
 		PedidoModel pedido = pedidoService.getPedidoById(id);
@@ -44,6 +47,7 @@ public class PedidoController {
 		}
 	}
 	
+	@CrossOrigin
 	@PostMapping("/{id}")
 	public ResponseEntity <PedidoModel> savedPedido(@PathVariable(value="id")Long id,@RequestBody PedidoModel pedido){
 			ProdutorModel produtor = produtorService.getProdutorById(id);
@@ -56,6 +60,7 @@ public class PedidoController {
 		}
 	}
 	
+	@CrossOrigin
 	@PutMapping("")
 	public ResponseEntity <PedidoModel> updatePedido(@RequestBody PedidoModel pedido){
 		PedidoModel existingPedido = pedidoService.getPedidoById(pedido.getIdPedido());
@@ -67,6 +72,7 @@ public class PedidoController {
 		}
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("/{id}")
 	public ResponseEntity <Void> deletePedido(@PathVariable ("id") long id){
 		PedidoModel existingPedido = pedidoService.getPedidoById(id);

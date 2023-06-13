@@ -9,6 +9,7 @@ import org.proj.residencia.service.EstabelecimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,12 +28,13 @@ public class ColetaController {
 	@Autowired
 	EstabelecimentoService estabelecimentoService;
 	
+	@CrossOrigin
 	@GetMapping("")
 	public ResponseEntity<List<ColetaModel>>  getAllColetas(){
 		List<ColetaModel> coletas = coletaService.getAllColetas();
 		return new ResponseEntity<>(coletas, HttpStatus.OK);
 	}
-	
+	@CrossOrigin
 	@GetMapping(path = "/{id}")
 	public ResponseEntity <ColetaModel> getColetasById(@PathVariable("id") Long id){
 		ColetaModel coleta = coletaService.getColetaById(id);
@@ -42,7 +44,7 @@ public class ColetaController {
 			return new ResponseEntity<>(coleta, HttpStatus.NOT_FOUND);
 		}	
 	}
-	
+	@CrossOrigin
 	@PostMapping("/{id}")
 	public ResponseEntity <ColetaModel> saveColeta(@PathVariable(value = "id") Long id,@RequestBody ColetaModel coleta){
 		EstabelecimentoModel estabelecimento = estabelecimentoService.getEstabelecimentoById(id);
@@ -54,7 +56,7 @@ public class ColetaController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-	
+	@CrossOrigin
 	@PutMapping("")
 	public ResponseEntity <ColetaModel> updateColeta(@RequestBody ColetaModel coleta){
 		ColetaModel existingColeta = coletaService.getColetaById(coleta.getIdColeta());
@@ -65,7 +67,7 @@ public class ColetaController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+	@CrossOrigin
 	@DeleteMapping("/{id}")
 	public ResponseEntity <Void> deleteColetas(@PathVariable ("id") long id){
 		ColetaModel existingColeta = coletaService.getColetaById(id);

@@ -8,6 +8,7 @@ import org.proj.residencia.service.ProdutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,12 +29,13 @@ public class ProdutorController {
 	@Autowired
 	private ProdutorService produtorService;
 
+	@CrossOrigin
 	@GetMapping
 	public ResponseEntity<List<ProdutorModel>> getAllProdutores() {
 		List<ProdutorModel> produtores = produtorService.getAllProdutores();
 		return new ResponseEntity<>(produtores, HttpStatus.OK);
 	}
-
+	@CrossOrigin
 	@GetMapping(path = "/id/{id}")
 	public ResponseEntity<ProdutorModel> getProdutorById(@PathVariable("id") Long id) {
 		ProdutorModel produtor = produtorService.getProdutorById(id);
@@ -43,7 +45,7 @@ public class ProdutorController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} 
 	}
-
+	@CrossOrigin
 	@GetMapping(path = "/{cnpj}")
 	public ResponseEntity<ProdutorModel> getProdutorById(@PathVariable("cnpj") String cnpj) {
 		ProdutorModel produtor = produtorService.getProdutorByCnpj(cnpj);
@@ -54,7 +56,7 @@ public class ProdutorController {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@GetMapping(path = "/{id}/pedidos")
 	public ResponseEntity<List<PedidoModel>> getPedidos(@PathVariable("id") Long id){
 		ProdutorModel produtor = produtorService.getProdutorById(id);
@@ -66,7 +68,7 @@ public class ProdutorController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	@CrossOrigin
 	@PostMapping("")
 	public ResponseEntity<ProdutorModel> saveProdutor(@RequestBody ProdutorModel produtor) {
 		Check check = new SafeguardCheck();
@@ -78,7 +80,7 @@ public class ProdutorController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-
+	@CrossOrigin
 	@PutMapping("")
 	public ResponseEntity<ProdutorModel> updateProdutor(@RequestBody ProdutorModel produtor) {
 		ProdutorModel existingProdutor = produtorService.getProdutorByCnpj(produtor.getCnpj());
@@ -89,7 +91,7 @@ public class ProdutorController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	@CrossOrigin
 	@DeleteMapping("/{cnpj}")
 	ResponseEntity<Void> deleteProdutor(@PathVariable("cnpj") String cnpj) {
 		ProdutorModel existingProdutor = produtorService.getProdutorByCnpj(cnpj);

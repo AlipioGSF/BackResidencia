@@ -8,6 +8,7 @@ import org.proj.residencia.service.EstabelecimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,12 +29,14 @@ public class EstabelecimentoController {
 	@Autowired
 	private EstabelecimentoService estabelecimentoService;
 
+	@CrossOrigin
 	@GetMapping
 	public ResponseEntity<List<EstabelecimentoModel>> getAllEstabelecimentos() {
 		List<EstabelecimentoModel> estabelecimentos = estabelecimentoService.getAllEstabelecimentos();
 		return new ResponseEntity<>(estabelecimentos, HttpStatus.OK);
 	}
 
+	@CrossOrigin
 	@GetMapping(path = "/id/{id}")
 	public ResponseEntity<EstabelecimentoModel> getRestauranteById(@PathVariable("id") Long id) {
 		EstabelecimentoModel estabelecimento = estabelecimentoService.getEstabelecimentoById(id);
@@ -43,7 +46,7 @@ public class EstabelecimentoController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	@CrossOrigin
 	@GetMapping(path = "/{cnpj}")
 	public ResponseEntity<EstabelecimentoModel> getRestauranteByCnpj(@PathVariable("cnpj") String cnpj) {
 		EstabelecimentoModel estabelecimento = estabelecimentoService.getEstabelecimentoByCnpj(cnpj);
@@ -54,7 +57,7 @@ public class EstabelecimentoController {
 		}
 	}
 
-	
+	@CrossOrigin
 	@GetMapping("/{id}/coletas")
 	public ResponseEntity<List<ColetaModel>> getColetas(@PathVariable("id") Long id){
 		EstabelecimentoModel estabelecimento = estabelecimentoService.getEstabelecimentoById(id);
@@ -69,7 +72,7 @@ public class EstabelecimentoController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	@CrossOrigin
 	@PostMapping("")
 	public ResponseEntity<EstabelecimentoModel> saveRestaurante(@RequestBody EstabelecimentoModel estabelecimento) {
 		Check check = new SafeguardCheck();
@@ -81,7 +84,7 @@ public class EstabelecimentoController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-
+	@CrossOrigin
 	@PutMapping("")
 	public ResponseEntity<EstabelecimentoModel> updateRestaurante(@RequestBody EstabelecimentoModel restaurante) {
 		EstabelecimentoModel existingRestaurante = estabelecimentoService.getEstabelecimentoByCnpj(restaurante.getCnpj());
@@ -92,7 +95,7 @@ public class EstabelecimentoController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	@CrossOrigin
 	@DeleteMapping("/{cnpj}")
 	public ResponseEntity<Void> deleteRestaurante(@PathVariable("cnpj") String cnpj) {
 		EstabelecimentoModel existingRestaurante = estabelecimentoService.getEstabelecimentoByCnpj(cnpj);
